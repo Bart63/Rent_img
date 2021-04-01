@@ -1,1 +1,3 @@
-"# Rent_img" 
+# Rent_img
+
+Python project made with Kivy
