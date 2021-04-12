@@ -1,5 +1,11 @@
-class Manager:
+from Validator import Validator
+from File_Handler import File_Handler
 
+class Manager:
+    def __init__(self):
+        self.validator = Validator()
+        self.f_handler = File_Handler()
+        
     def Search_Imgs(self):
         pass
 

@@ -1,9 +1,9 @@
 class Validator:
-    def IsString(self):
+    def IsString(self) -> bool:
         pass
 
-    def IsQuery(self):
+    def IsQuery(self) -> bool:
         pass
 
-    def IsBalance(self):
+    def IsBalance(self) -> bool:
         pass

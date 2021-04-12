@@ -1,5 +1,5 @@
 class File_Handler:
-    def Exist(self):
+    def Exist(self) -> bool:
         pass
 
     def Read(self):

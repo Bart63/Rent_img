@@ -1,8 +1,11 @@
 from GUI import GUI
 
-
 class Client(GUI):
     __balance="0"
+
+    def __init__(self):
+        super(Client, self).__init__()
+
     def SetBalance(self):
         pass
 
