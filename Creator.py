@@ -19,7 +19,7 @@ class Creator(GUI):
         gr.add_widget(Label(text="Opis:"))
         gr.add_widget(TextInput(multiline=False))
         gr.add_widget(Label(text="Cena:"))
-        gr.add_widget(TextInput(multiline=False))
+        gr.add_widget(TextInput(multiline=False, input_filter='int'))
         gr.add_widget(Label(text="Zdjęcie:"))
         gr.add_widget(Button(text="Wybierz zdjęcie"))
         gr.add_widget(Label())
