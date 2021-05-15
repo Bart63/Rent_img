@@ -11,16 +11,10 @@ class Validator:
         pass
 
     def IsValidString(self,text,max_length) -> bool:
-        if (type(text)==str and len(text)<=max_length and len(text)>0):
-            return True
-        else:
-            return False
+        return (type(text)==str and 0<len(text)<=max_length)
 
     def IsValidInt(self,value,max_val) -> bool:
-        if(type(value)==int and value<=max_val and value>0):
-            return True
-        else:
-            return False
+        return type(value)==int and 0<value<=max_val
 
-    def IsValidPath(self,path,):
+    def IsValidPath(self,path):
         pass
