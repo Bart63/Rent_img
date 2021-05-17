@@ -1,11 +1,18 @@
 from kivy.app import App
+from kivy.properties import ObjectProperty
 from kivy.uix.textinput import TextInput
 from kivy.uix.popup import Popup
 from Manager import Manager
 import re
 
 class Login_Popup(Popup):
-    pass
+    name, password = ObjectProperty(None), ObjectProperty(None)
+    def login(self):
+        print({
+            "name": self.name.text,
+            "password": self.password.text
+        })
+        self.dismiss()
 
 class LoginInput(TextInput):
     patt = re.compile("[^a-zA-Z0-9]")

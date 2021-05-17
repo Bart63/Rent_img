@@ -1,12 +1,15 @@
 <Login_Popup>:
     title: "Log in"
     auto_dismiss: False
+    name: name
+    password: password
     FloatLayout:
         Label:
             text: "Login"
             size_hint: 1, 0.2
             pos_hint: {"y":0.8, "x":0.001}
         LoginInput:
+            id: name
             multiline: False
             size_hint: 1, 0.2
             pos_hint: {"y":0.6, "x":0.001}
@@ -15,6 +18,7 @@
             size_hint: 1, 0.2
             pos_hint: {"y":0.4, "x":0.001}
         PasswordInput:
+            id: password
             multiline: False
             size_hint: 1, 0.2
             pos_hint: {"y":0.2, "x":0.001}
@@ -23,15 +27,19 @@
             text: "Submit"
             size_hint: 1, 0.2
             pos_hint: {"y":0, "x":0.001}
-            on_release: root.dismiss()
+            on_release: root.login()
 
 <Client_Screen>:
     cols: 2
+    rented: rented
+    available: available
     Label:
         text: "Wypożyczone:"
     TextInput:
+        id: rented
         multiline: False
     Label:
         text: "Do wypożyczenia:"
     TextInput:
+        id: available
         multiline: False

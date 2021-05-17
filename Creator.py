@@ -6,6 +6,11 @@ from GUI import GUI
 import os
 
 class Creator_Screen(GridLayout):
+    name = ObjectProperty(None)
+    desc = ObjectProperty(None)
+    price = ObjectProperty(None)
+    path = ObjectProperty(None)
+
     def dismiss_popup(self):
         self._popup.dismiss()
 
@@ -16,8 +21,16 @@ class Creator_Screen(GridLayout):
         self._popup.open()
 
     def load(self, path, filename):
-        print(os.path.join(path, filename[0]))
+        self.path.text = os.path.join(path, filename[0])
         self.dismiss_popup()
+
+    def send_photo(self):
+        print({
+            "name": self.name.text,
+            "desc": self.desc.text,
+            "price": self.price.text,
+            "path": self.path.text
+        })
 
 class LoadDialog(FloatLayout):
     load = ObjectProperty(None)

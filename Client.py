@@ -1,10 +1,12 @@
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
+from kivy.properties import ObjectProperty
 from kivy.uix.textinput import TextInput
 from GUI import GUI
 
 class Client_Screen(GridLayout):
-    pass
+    rented = ObjectProperty(None)
+    available = ObjectProperty(None)
 
 class Client(GUI):
     __balance__ = 0
