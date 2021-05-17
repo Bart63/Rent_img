@@ -1,0 +1,46 @@
+<Login_Popup>:
+    Label:
+        text: "Login"
+        size_hint: 1, 0.2
+        pos_hint: {"y":0.8, "x":0.001}
+    LoginInput:
+        multiline: False
+        size_hint: 1, 0.2
+        pos_hint: {"y":0.6, "x":0.001}
+    Label:
+        text: "Password"
+        size_hint: 1, 0.2
+        pos_hint: {"y":0.4, "x":0.001}
+    PasswordInput:
+        multiline: False
+        size_hint: 1, 0.2
+        pos_hint: {"y":0.2, "x":0.001}
+        password: True
+    Button:
+        text: "Submit"
+        size_hint: 1, 0.2
+        pos_hint: {"y":0, "x":0.001}
+<Creator_Screen>:
+    rows: 5
+    cols: 2
+    Label:
+        text: "Nazwa:"
+    TextInput:
+        multiline: False
+    Label:
+        text: "Opis:"
+    TextInput:
+        multiline: False
+    Label:
+        text: "Cena:"
+    TextInput:
+        multiline: False
+        input_filter: "int"
+    Label:
+        text: "Zdjęcie"
+    Button:
+        text: "Wybierz"
+    Label:
+        text: ""
+    Button:
+        text: "Wyślij"
