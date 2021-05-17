@@ -31,15 +31,13 @@
 
 <Client_Screen>:
     cols: 2
-    rented: rented
-    available: available
     Label:
         text: "Wypożyczone:"
-    TextInput:
-        id: rented
-        multiline: False
+    Button:
+        text: "Pokaż"
+        on_release: root.Show_Items()
     Label:
         text: "Do wypożyczenia:"
-    TextInput:
-        id: available
-        multiline: False
+    Button:
+        text: "Pokaż"
+        on_release: root.Show_Items()
