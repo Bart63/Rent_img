@@ -13,15 +13,7 @@ class Client(GUI):
         super(Client, self).__init__()
 
     def build(self):
-        gr = GridLayout(
-            rows=5,
-            cols=2
-        )
-        gr.add_widget(Label(text="Wypożyczone:"))
-        gr.add_widget(TextInput(multiline=False))
-        gr.add_widget(Label(text="Do wypożyczenia:"))
-        gr.add_widget(TextInput(multiline=False))
-        return gr
+        return Client_Screen()
 
     def SetBalance(self):
         pass

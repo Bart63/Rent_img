@@ -1,11 +1,10 @@
 from kivy.app import App
 from kivy.uix.textinput import TextInput
-from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.popup import Popup
 from Manager import Manager
 import re
 
-class Login_Popup(FloatLayout):
+class Login_Popup(Popup):
     pass
 
 class LoginInput(TextInput):
@@ -28,6 +27,5 @@ class GUI(App):
         self.Show_Popup()
 
     def Show_Popup(self):
-        cont = Login_Popup()
-        popupWindow = Popup(title="Log in", content=cont, size_hint=(1,1), auto_dismiss=False)
+        popupWindow = Login_Popup()
         popupWindow.open()
