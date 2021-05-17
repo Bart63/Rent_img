@@ -1,7 +1,5 @@
-from configparser import NoOptionError
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.scrollview import ScrollView
-from kivy.properties import ObjectProperty
 from kivy.core.window import Window
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
@@ -29,7 +27,6 @@ class Items_Popup(Popup):
 
 class Client(GUI):
     __balance__ = 0
-
     def __init__(self):
         super(Client, self).__init__()
 
