@@ -1,8 +1,27 @@
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.popup import Popup
+from kivy.properties import ObjectProperty
 from GUI import GUI
+import os
 
 class Creator_Screen(GridLayout):
-    pass
+    def dismiss_popup(self):
+        self._popup.dismiss()
+
+    def show_load(self):
+        content = LoadDialog(load=self.load, cancel=self.dismiss_popup)
+        self._popup = Popup(title="Wybierz plik", content=content,
+                            size_hint=(0.9, 0.9))
+        self._popup.open()
+
+    def load(self, path, filename):
+        print(os.path.join(path, filename[0]))
+        self.dismiss_popup()
+
+class LoadDialog(FloatLayout):
+    load = ObjectProperty(None)
+    cancel = ObjectProperty(None)
 
 class Creator(GUI):
     def __init__(self):

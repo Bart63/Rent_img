@@ -25,6 +25,24 @@
             pos_hint: {"y":0, "x":0.001}
             on_release: root.dismiss()
 
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserIconView:
+            id: filechooser
+            filters: ["*.png", "*.jpg", "*.jpeg"]
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.path, filechooser.selection)
+
 <Creator_Screen>:
     rows: 5
     cols: 2
@@ -45,6 +63,7 @@
         text: "Zdjęcie"
     Button:
         text: "Wybierz"
+        on_release: root.show_load()
     Label:
         text: ""
     Button:
