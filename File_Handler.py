@@ -7,13 +7,21 @@ class File_Handler:
         f = open(file,'r')
         if n >= 0 and n >= f:
             for line in f:
+                f.readline()
                 if line == n:
-                    return line
+                    return f.readline()
         else:
             file_lines = [line.strip("\n") for line in f if line != "\n"]
             return file_lines
         f.close()
 
+    def Update(self,file,st,n = -1):
+        f = open(file,'w')
+        if n >= 0 and n >= f:
+            for line in f :
+                f.readline()
+                if line == n:
+                    f.write(st)
 
 
     def Write(self, st,file):
