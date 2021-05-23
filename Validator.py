@@ -1,5 +1,7 @@
 import os.path
 
+extentions = ['.png', '.jpg', '.jpeg']
+
 class Validator:
     def IsString(self):
         pass
@@ -11,10 +13,20 @@ class Validator:
         pass
 
     def IsValidString(self,text,max_length) -> bool:
-        return type(text)==str and 0<len(text)<=max_length
+        if (type(text)==str and len(text)<=max_length and len(text)>0):
+            return True
+        else:
+            return False
 
     def IsValidInt(self,value,max_val) -> bool:
-        return type(value)==int and 0<value<=max_val
+        if(type(value)==int and value<=max_val and value>0):
+            return True
+        else:
+            return False
 
     def IsValidPath(self,path):
-        pass
+        if os.path.isfile(path):
+            name,extention = os.path.splitext(path)
+            for ext in extentions :
+                if extention == extentions[ext]:
+                    return True
