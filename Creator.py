@@ -24,13 +24,24 @@ class Creator_Screen(GridLayout):
         self.path.text = os.path.join(path, filename[0])
         self.dismiss_popup()
 
+    def clear_form(self):
+        self.name.text = ""
+        self.desc.text = ""
+        self.price.text = ""
+
     def send_photo(self):
-        print({
+        data = {
             "name": self.name.text,
-            "desc": self.desc.text,
-            "price": self.price.text,
+            "description": self.desc.text,
+            "price": int(self.price.text),
             "path": self.path.text
-        })
+        }
+        res = Creator.Send_Images(data)
+        self.clear_form()
+        if res != False:
+            self.path.text = f"ID Twojego obrazka to: {res}"
+        else:
+            self.path.text = "Nie udało się wysłać obrazka"
 
 class LoadDialog(FloatLayout):
     load = ObjectProperty(None)
@@ -39,6 +50,9 @@ class LoadDialog(FloatLayout):
 class Creator(GUI):
     def __init__(self):
         super(Creator, self).__init__()
+
+    def Send_Images(data):
+        return Creator().Get_Manager().Send_Imgs(data)
 
     def build(self):
         return Creator_Screen()

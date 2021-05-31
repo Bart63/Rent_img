@@ -1,7 +1,7 @@
 <Login_Popup>:
     title: "Log in"
     auto_dismiss: False
-    name: name
+    username: username
     password: password
     FloatLayout:
         Label:
@@ -9,7 +9,7 @@
             size_hint: 1, 0.2
             pos_hint: {"y":0.8, "x":0.001}
         LoginInput:
-            id: name
+            id: username
             multiline: False
             size_hint: 1, 0.2
             pos_hint: {"y":0.6, "x":0.001}
@@ -31,13 +31,20 @@
 
 <Client_Screen>:
     cols: 2
+    balance: balance
+    Label:
+        text: "Sklep:"
+    Button:
+        text: "Pokaż"
+        on_release: root.Show_Shop()
     Label:
         text: "Wypożyczone:"
     Button:
         text: "Pokaż"
-        on_release: root.Show_Items()
+        on_release: root.Show_Rented()
     Label:
-        text: "Do wypożyczenia:"
+        id: balance
+        text: "Balans: 0$"
     Button:
-        text: "Pokaż"
-        on_release: root.Show_Items()
+        text: "+10$"
+        on_release: root.Add_Balance()
