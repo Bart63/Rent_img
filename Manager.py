@@ -1,9 +1,8 @@
 from Validator import Validator
 from File_Handler import File_Handler
-from Encoder import Encoder
-from Decoder import Decoder
+from ImageCodedAdapter import ImageCodedAdapter
+from ImageRawAdapter import ImageRawAdapter
 import requests
-from DictJSONAdapt import DictJSONAdapt
 
 class Manager:
     def __init__(self):
@@ -13,7 +12,6 @@ class Manager:
     def Log_in(self, data) -> bool: 
         if not Validator().IsValidAllLogin(data):
             return False
-        data = DictJSONAdapt(data).getJSON()
         r = requests.post('http://127.0.0.1:5000/login', json=data)
         if r.status_code==200:
             return True
@@ -31,7 +29,8 @@ class Manager:
     def Send_Imgs(self, data):
         if not Validator().IsValidAllSend(data):
             return False
-        en_img_json = Encoder().encode(data['path'])
+        img_raw = ImageRawAdapter(data['path'])
+        en_img_json = img_raw.Get_Coded()
         del data['path']
         data['image'] = en_img_json
         r = requests.post('http://127.0.0.1:5000/images', json=data)
@@ -54,19 +53,8 @@ class Manager:
             return [img for img in imgs if img['id']==num]
 
     def Open_Imgs(self, img):
-        return Decoder().decode(img)
-
-    def Save(self):
-        pass
-
-    def Load(self):
-        pass
+        img_coded = ImageCodedAdapter(img)
+        return img_coded.Get_Img()
 
     def RemoveExpired(self):
         pass
-
-if __name__=='__main__':
-    Manager().Log_in({
-    'username' : 'Bart',
-    'password' : 'Bart'
-})
