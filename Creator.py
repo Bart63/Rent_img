@@ -3,7 +3,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.popup import Popup
 from kivy.properties import ObjectProperty
 from GUI import GUI
-import os
+from os.path import join
 
 class Creator_Screen(GridLayout):
     name = ObjectProperty(None)
@@ -21,7 +21,7 @@ class Creator_Screen(GridLayout):
         self._popup.open()
 
     def load(self, path, filename):
-        self.path.text = os.path.join(path, filename[0])
+        self.path.text = join(path, filename[0])
         self.dismiss_popup()
 
     def clear_form(self):

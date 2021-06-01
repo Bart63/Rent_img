@@ -1,6 +1,6 @@
 from os import name
-import os.path
-import sys
+from os.path import splitext, isfile
+from sys import maxsize
 
 extentions = ['.png', '.jpg', '.jpeg']
 
@@ -17,15 +17,15 @@ class Validator:
         pass_valid = self.IsValidString(data['password'])
         return name_valid and pass_valid
 
-    def IsValidString(self, text, max_length=sys.maxsize) -> bool:
+    def IsValidString(self, text, max_length=maxsize) -> bool:
         return type(text)==str and len(text)<=max_length and len(text)>0
 
-    def IsValidInt(self, value, max_val=sys.maxsize) -> bool:
+    def IsValidInt(self, value, max_val=maxsize) -> bool:
         return type(value)==int and value<=max_val and value>0
 
     def IsValidPath(self, path) -> bool:
-        if os.path.isfile(path):
-            name,extention = os.path.splitext(path)
+        if isfile(path):
+            name,extention = splitext(path)
             for ext in extentions:
                 if extention == ext:
                     return True

@@ -3,7 +3,7 @@ from kivy.properties import ObjectProperty
 from kivy.uix.textinput import TextInput
 from kivy.uix.popup import Popup
 from Manager import Manager
-import re
+from re import compile, split
 
 class Login_Popup(Popup):
     username, password = ObjectProperty(None), ObjectProperty(None)
@@ -17,9 +17,9 @@ class Login_Popup(Popup):
             self.dismiss()
 
 class LoginInput(TextInput):
-    patt = re.compile("[^a-zA-Z0-9]")
+    patt = compile("[^a-zA-Z0-9]")
     def insert_text(self, substring, from_undo=False):
-        substring = "".join(re.split(self.patt, substring))
+        substring = "".join(split(self.patt, substring))
         return super().insert_text(substring, from_undo=from_undo)
 
 class PasswordInput(TextInput):

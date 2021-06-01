@@ -2,7 +2,7 @@ from Validator import Validator
 from File_Handler import File_Handler
 from ImageCodedAdapter import ImageCodedAdapter
 from ImageRawAdapter import ImageRawAdapter
-import requests
+from requests import get, post
 
 class Manager:
     def __init__(self):
@@ -12,13 +12,13 @@ class Manager:
     def Log_in(self, data) -> bool: 
         if not Validator().IsValidAllLogin(data):
             return False
-        r = requests.post('http://127.0.0.1:5000/login', json=data)
+        r = post('http://127.0.0.1:5000/login', json=data)
         if r.status_code==200:
             return True
         return False
     
     def Search_Imgs(self):
-        r = requests.get('http://127.0.0.1:5000/images')
+        r = get('http://127.0.0.1:5000/images')
         return r.json()
 
     def Lend_Imgs(self, data):
@@ -33,7 +33,7 @@ class Manager:
         en_img_json = img_raw.Get_Coded()
         del data['path']
         data['image'] = en_img_json
-        r = requests.post('http://127.0.0.1:5000/images', json=data)
+        r = post('http://127.0.0.1:5000/images', json=data)
         if r.status_code==200:
             return r.json()['id']
         return False
