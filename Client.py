@@ -111,3 +111,6 @@ class Client(GUI):
 
 if __name__=='__main__':
     Client().run()
+
+def run():
+    Client().run()

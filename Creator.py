@@ -59,3 +59,6 @@ class Creator(GUI):
 
 if __name__=='__main__':
     Creator().run()
+
+def run():
+    Creator().run()
