@@ -3,6 +3,7 @@ from File_Handler import File_Handler
 from ImageCodedAdapter import ImageCodedAdapter
 from ImageRawAdapter import ImageRawAdapter
 from requests import get, post
+from datetime import datetime, timedelta
 
 class Manager:
     def __init__(self):
@@ -22,9 +23,13 @@ class Manager:
         return r.json()
 
     def Lend_Imgs(self, data):
-        File_Handler().Write(str(data['id']))
-        File_Handler().Write(data['description'])
-        File_Handler().Write(data['images'])
+        self.f_handler.Write(str(data['id']))
+        self.f_handler.Write(data['description'])
+        self.f_handler.Write(data['images'])
+        delta_time = timedelta(days=1)
+        current_date = datetime.now()
+        expiration_date = current_date+delta_time
+        self.f_handler.Write(expiration_date.isoformat())
 
     def Send_Imgs(self, data):
         if not Validator().IsValidAllSend(data):
@@ -39,13 +44,19 @@ class Manager:
         return False
 
     def Show_Imgs(self, num=-1):
-        lines = File_Handler().Read()
+        lines = self.f_handler.Read()
+        for ind,el in enumerate(lines):
+            lines[ind] = el.replace("\n", "")
+        self.RemoveExpired(lines)
+        lines = self.f_handler.Read()
+        for ind,el in enumerate(lines):
+            lines[ind] = el.replace("\n", "")
         imgs = []
-        for i in range(0, len(lines), 3):
+        for i in range(0, len(lines), 4):
             imgs.append({
-                'id' : int(lines[i].replace("\n", "")),
-                'description' : lines[i+1].replace("\n", ""),
-                'images' : lines[i+2].replace("\n", "")
+                'id' : int(lines[i]),
+                'description' : lines[i+1],
+                'images' : lines[i+2]
             })
         if num==-1:
             return imgs
@@ -56,5 +67,13 @@ class Manager:
         img_coded = ImageCodedAdapter(img)
         return img_coded.Get_Img()
 
-    def RemoveExpired(self):
-        pass
+    def RemoveExpired(self, lines):
+        current_date = datetime.now()
+        not_expired = []
+        for i in range(0, len(lines), 4):
+            expiration_date = datetime.fromisoformat(lines[i+3])
+            if current_date<expiration_date:
+                not_expired.extend(lines[i:i+4])
+        self.f_handler.Clear()
+        for st in not_expired:
+            self.f_handler.Write(st)
