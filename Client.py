@@ -1,3 +1,4 @@
+from kivy.app import App
 from kivy.core.text import Label
 from Manager import Manager
 from kivy.uix.gridlayout import GridLayout
@@ -13,14 +14,25 @@ from kivy.uix.image import Image
 class Client_Screen(GridLayout):
     balance = ObjectProperty(None)
     def Show_Shop(self):
-        Shop_Popup().open()
+        Shop_Popup().open(self)
 
     def Show_Rented(self):
         Rented_Popup().open()
     
-    def Add_Balance(self):
-        Client.__balance__ += 10
+    def Add_Balance(self, val=10):
+        Client.__balance__ += val
         self.balance.text = f"Balans: {Client.__balance__}$"
+
+    def RandomImage(self):
+        res = Client().Random_Image()
+        if not res:
+            return
+        id = res['id_obrazu']
+        responses = Client().Search_Images()
+        image = responses[str(id)]
+        if Client.__balance__-image['price']>=0:
+            Client().Get_Manager().Lend_Imgs(image)
+            self.Add_Balance(-image['price'])
 
 class Shop_Popup(Popup):
     def __init__(self, **kwargs):
@@ -31,11 +43,14 @@ class Shop_Popup(Popup):
         id = largs[0].text
         responses = Client().Search_Images()
         image = responses[id]
-        Client().Get_Manager().Lend_Imgs(image)
-        for k in image:
-            print(k)
-        #Client.__balance__ -= image['price']
+        if Client.__balance__-image['price']>=0:
+            Client().Get_Manager().Lend_Imgs(image)
+            self.root.Add_Balance(-image['price'])
         self.dismiss()
+
+    def open(self, *largs, **kwargs):
+        self.root = largs[0]
+        return super().open(*largs, **kwargs)
 
     def on_open(self):
         layout = GridLayout(cols=2, spacing=10, size_hint_y=None)
@@ -50,7 +65,6 @@ class Shop_Popup(Popup):
         root.add_widget(layout)
         self.add_widget(root)
         return super().on_open()
-
 
 class Image_Popup(Popup):
     def __init__(self, img, title, **kwargs):
@@ -105,6 +119,9 @@ class Client(GUI):
     
     def Open_Image(self, img):
         return Manager().Open_Imgs(img)
+
+    def Random_Image(self):
+        return Manager().Ranom_Img()
 
     def build(self):
         return Client_Screen()

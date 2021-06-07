@@ -14,10 +14,17 @@ class Manager:
         if not Validator().IsValidAllLogin(data):
             return False
         r = post('http://127.0.0.1:5000/login', json=data)
-        if r.status_code==200:
+        if r.status_code==200 or r.status_code==409:
             return True
         return False
     
+    def Ranom_Img(self) -> dict:
+        data = {'login': 'login', 'czas_zakonczenia': 'czas_zakonczenia'}
+        r = post('http://127.0.0.1:5000/rent_image/random', json=data)
+        if r.status_code==200 or r.status_code==409:
+            return r.json()
+        return {}
+
     def Search_Imgs(self):
         r = get('http://127.0.0.1:5000/images')
         return r.json()
