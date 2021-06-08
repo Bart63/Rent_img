@@ -23,7 +23,7 @@ class Client_Screen(GridLayout):
         Client.__balance__ += val
         self.balance.text = f"Balans: {Client.__balance__}$"
 
-    def RandomImage(self):
+    def Random_Image(self):
         res = Client().Random_Image()
         if not res:
             return
